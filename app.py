@@ -1,27 +1,47 @@
+import logging
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # Import CORS to allow cross-origin requests
+from flask_cors import CORS
+from waitress import serve
 import os
 
-app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+# Set up logging for debugging
+logging.basicConfig(level=logging.DEBUG)
 
+# Initialize the Flask app and enable CORS (Cross-Origin Resource Sharing)
+app = Flask(__name__)
+CORS(app)
+
+# Define the /analyze POST endpoint
 @app.route("/analyze", methods=["POST"])
 def analyze():
     try:
-        data = request.get_json()  # Get JSON data from the request body
+        # Get the data sent with the POST request (expects JSON)
+        data = request.get_json()
+        app.logger.debug(f"Received data: {data}")  # Log the received data
+
+        # Check if data is present
         if not data:
+            app.logger.error("Invalid JSON received")
             return jsonify({"error": "Invalid JSON"}), 400
 
+        # Extract the 'text' field from the data
         text = data.get("text")
+        
+        # If text is found, return a placeholder sentiment analysis result
         if text:
-            # Dummy response for sentiment analysis
             return jsonify({"label": "NEGATIVE", "score": 0.995}), 200
         else:
-            return jsonify({"error": "Missing text parameter"}), 400
+            app.logger.error("Missing 'text' parameter in the request")
+            return jsonify({"error": "Missing 'text' parameter"}), 400
+
     except Exception as e:
+        # Log any exceptions that occur
+        app.logger.error(f"Exception occurred: {e}")
         return jsonify({"error": str(e)}), 500
 
+# Run the app using Waitress for production environment
 if __name__ == "__main__":
-    # Use the PORT environment variable for the port number in production (Heroku)
-    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if not set
-    app.run(host="0.0.0.0", port=port, debug=False)  # Disable debug mode in production
+    port = int(os.environ.get("PORT", 5000))  # Use environment variable for port or default to 5000
+    app.logger.info(f"Starting server on port {port}")
+    serve(app, host="0.0.0.0", port=port)  # Start the server using Waitress
+
