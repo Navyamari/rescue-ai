@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rescue AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            padding: 50px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 32px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #e7f7f7;
+            border-radius: 8px;
+            display: none; /* Initially hidden */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Rescue AI</h1>
+    <p>Click the button below to analyze your message.</p>
+
+    <!-- Button to send request -->
+    <button onclick="sendRequest()">Get Started</button>
+
+    <!-- Div to show response -->
+    <div id="response"></div>
+
+    <script>
+        function sendRequest() {
+            const xhr = new XMLHttpRequest();
+            const url = "http://127.0.0.1:5000/analyze";  // Make sure your Flask server is running
+            const data = JSON.stringify({ text: "We need help with the flood situation in the city." });
+
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    document.getElementById("response").innerHTML = 
+                        `Label: ${response.label}, Score: ${response.score}`;
+                    document.getElementById("response").style.display = 'block';  // Show the response div
+                } else if (xhr.readyState === 4) {
+                    alert("Error: " + xhr.statusText);
+                }
+            };
+
+            xhr.send(data);
+        }
+    </script>
+
+</body>
+</html>
