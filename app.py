@@ -27,9 +27,12 @@ def analyze():
         # Extract the 'text' field from the data
         text = data.get("text")
         
-        # If text is found, return a placeholder sentiment analysis result
         if text:
-            return jsonify({"label": "NEGATIVE", "score": 0.995}), 200
+            # Basic sentiment analysis logic
+            if "love" in text.lower() or "happy" in text.lower():
+                return jsonify({"label": "POSITIVE", "score": 0.99}), 200
+            else:
+                return jsonify({"label": "NEGATIVE", "score": 0.995}), 200
         else:
             app.logger.error("Missing 'text' parameter in the request")
             return jsonify({"error": "Missing 'text' parameter"}), 400
@@ -43,5 +46,4 @@ def analyze():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Use environment variable for port or default to 5000
     app.logger.info(f"Starting server on port {port}")
-    serve(app, host="0.0.0.0", port=port)  # Start the server using Waitress
-
+    serve(app, host="0.0.0.0", port=port)
