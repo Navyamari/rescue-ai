@@ -47,7 +47,7 @@
     <script>
         function sendRequest() {
             const xhr = new XMLHttpRequest();
-            const url = "http://127.0.0.1:5000/analyze";  // Make sure your Flask server is running
+            const url = "https://rescue-ai-866de1f74ce2.herokuapp.com/analyze";  // Updated to your Heroku app URL
             const data = JSON.stringify({ text: "We need help with the flood situation in the city." });
 
             xhr.open("POST", url, true);
