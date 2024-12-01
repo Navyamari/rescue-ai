@@ -8,6 +8,12 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 CORS(app)
 
+# Route for the root URL
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"message": "Rescue AI is running!"})
+
+# Existing analyze route
 @app.route("/analyze", methods=["POST"])
 def analyze():
     try:
@@ -43,3 +49,14 @@ def analyze():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     serve(app, host="0.0.0.0", port=port)
+    from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to the Rescue AI app!"
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
