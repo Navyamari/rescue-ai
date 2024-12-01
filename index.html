@@ -4,135 +4,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rescue AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
             margin: 0;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: #333;
             padding: 0;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: #333;
+            padding: 10px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            justify-content: space-around;
         }
 
-        .container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            text-align: center;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        h1 {
-            color: #2a3d66;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 30px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 120px;
-            padding: 10px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            resize: none;
-        }
-
-        button {
-            background-color: #007BFF;
+        nav a {
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #result {
-            margin-top: 20px;
-            background-color: #e8f4f8;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 18px;
-        }
-
-        .label {
+            text-decoration: none;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #ff6347;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            color: white;
+            animation: fadeIn 2s;
+        }
+
+        /* Content Section */
+        section {
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
             color: #333;
         }
 
-        .value {
-            color: #007BFF;
+        /* Collapsible Styles */
+        .collapsible {
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
 
-        .error {
-            color: red;
-            font-weight: bold;
+        .collapsible:hover {
+            background: #45a049;
+        }
+
+        .content {
+            padding: 0 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        .content p {
+            margin: 10px 0;
+        }
+
+        /* Form */
+        form {
+            margin: 20px 0;
+        }
+
+        form label, form input, form button, form textarea {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        form input, form textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Rescue AI</h1>
-        <p>Click the button below to analyze your message.</p>
-        <textarea id="message" placeholder="Enter your message here..."></textarea><br>
-        <button id="analyze-btn">Get Started</button>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#about">What is Rescue AI?</a>
+        <a href="#how-it-works">How it Works?</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-        <div id="result">
-            <p><span class="label">Category:</span> <span id="category" class="value">undefined</span></p>
-            <p><span class="label">Response:</span> <span id="response" class="value">undefined</span></p>
+    <!-- Header -->
+    <header>
+        <h1><i class="fas fa-ambulance"></i> Welcome to Rescue AI</h1>
+        <p>Your emergency response partner</p>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <button class="collapsible">What is Rescue AI?</button>
+        <div class="content">
+            <p>Rescue AI is a cutting-edge application designed to assist individuals and organizations during emergencies. 
+            It leverages advanced AI to categorize and prioritize emergency messages, ensuring swift and accurate responses.</p>
         </div>
-    </div>
+    </section>
 
+    <!-- How It Works Section -->
+    <section id="how-it-works">
+        <button class="collapsible">How It Works?</button>
+        <div class="content">
+            <p>Users provide their details and input the emergency message. Rescue AI processes the information and offers 
+            actionable insights or connects users with the right resources.</p>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <!-- Emergency Response Section -->
+    <section id="response" style="display: none;">
+        <h2>Emergency Response</h2>
+        <p>Please enter the details of your emergency:</p>
+        <form id="responseForm">
+            <label for="emergencyMessage">Emergency Message:</label>
+            <textarea id="emergencyMessage" name="emergencyMessage" rows="4" placeholder="Describe your emergency" required></textarea>
+
+            <button type="submit">Submit Response</button>
+        </form>
+        <div id="responseMessage" style="display: none; margin-top: 20px;">
+            <p><strong>Thanks for sharing. Our team will contact you shortly. Meanwhile, please contact local authorities or emergency services like firefighters or police for immediate help.</strong></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Rescue AI. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
     <script>
-        document.getElementById('analyze-btn').addEventListener('click', async () => {
-            const message = document.getElementById('message').value;
+        // Collapsible Handlers
+        const collapsibles = document.querySelectorAll('.collapsible');
+        collapsibles.forEach((collapsible) => {
+            collapsible.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
+            });
+        });
 
-            if (!message) {
-                alert("Please enter a message.");
-                return;
-            }
+        // Form Handlers
+        const contactForm = document.getElementById('contactForm');
+        const responseSection = document.getElementById('response');
+        const responseForm = document.getElementById('responseForm');
+        const responseMessage = document.getElementById('responseMessage');
 
-            const url = "https://rescue-ai-866de1f74ce2.herokuapp.com/analyze";
+        // Handle Contact Form Submission
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent page reload
+            responseSection.style.display = 'block'; // Show the response section
+            contactForm.reset(); // Clear the contact form
+        });
 
-            try {
-                const response = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ text: message })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                document.getElementById('category').textContent = data.category || "undefined";
-                document.getElementById('response').textContent = data.response?.action || "undefined";
-            } catch (error) {
-                console.error("Error:", error);
-                document.getElementById('category').textContent = "undefined";
-                document.getElementById('response').textContent = "undefined";
-                alert("Something went wrong. Please try again.");
-            }
+        // Handle Emergency Response Submission
+        responseForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent page reload
+            responseMessage.style.display = 'block'; // Show success message
+            responseForm.reset(); // Clear the response form
         });
     </script>
 </body>
